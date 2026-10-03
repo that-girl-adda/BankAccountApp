@@ -1,0 +1,14 @@
+C:\Users\PC\Documents\BackendLearning\bin\Debug\net10.0\BackendLearning.exe
+C:\Users\PC\Documents\BackendLearning\bin\Debug\net10.0\BackendLearning.deps.json
+C:\Users\PC\Documents\BackendLearning\bin\Debug\net10.0\BackendLearning.runtimeconfig.json
+C:\Users\PC\Documents\BackendLearning\bin\Debug\net10.0\BackendLearning.dll
+C:\Users\PC\Documents\BackendLearning\bin\Debug\net10.0\BackendLearning.pdb
+C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\BackendLearning.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\BackendLearning.AssemblyInfoInputs.cache
+C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\BackendLearning.AssemblyInfo.cs
+C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\BackendLearning.csproj.CoreCompileInputs.cache
+C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\BackendLearning.dll
+C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\refint\BackendLearning.dll
+C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\BackendLearning.pdb
+C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\BackendLearning.genruntimeconfig.cache
+C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\ref\BackendLearning.dll
