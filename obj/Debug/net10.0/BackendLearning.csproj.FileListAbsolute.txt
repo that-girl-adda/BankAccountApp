@@ -12,3 +12,4 @@ C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\refint\BackendLearning.d
 C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\BackendLearning.pdb
 C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\BackendLearning.genruntimeconfig.cache
 C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\ref\BackendLearning.dll
+C:\Users\PC\Documents\BackendLearning\obj\Debug\net10.0\BackendLearning.sourcelink.json
