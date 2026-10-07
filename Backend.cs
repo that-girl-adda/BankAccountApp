@@ -6,6 +6,12 @@ namespace BackendLearning
         public string AccountName  {get; set;}
         private  decimal _balance ;
 
+        protected decimal Balance
+        {
+            get => _balance;
+            set => _balance = value;
+        }
+
         public BankAccount(string accNumber, string accName, decimal initialBalance)
         {
             AccountNumber = accNumber;
@@ -23,7 +29,7 @@ namespace BackendLearning
             _balance += amount;
             Console.WriteLine($"Sucessfully deposited N{amount:N2}. New Balance: N{_balance:N2}");
         }
-        public void Withdraw (decimal amount)
+        public virtual void Withdraw (decimal amount)
         {
             if (amount <= 0)
             {
@@ -44,6 +50,7 @@ namespace BackendLearning
             return _balance;
         }
 
+
         public void DisplayAccountDetails ()
         {
             Console.WriteLine("Account Details");
@@ -52,9 +59,16 @@ namespace BackendLearning
             Console.WriteLine($"Current Balance : N{_balance:N2}");
             Console.WriteLine("...............");
         }
+
+        public virtual void AccountType()
+        {
+            Console.WriteLine($" Hello, {AccountName}. You can open a savings or current account!!");
         
-        
-    }
+        }
+
+            
+    }    
 
 }
+
 
