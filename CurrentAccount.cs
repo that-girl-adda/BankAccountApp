@@ -10,6 +10,16 @@ namespace BackendLearning
         public override void AccountType()
         {
             Console.WriteLine($"[Successful] {AccountName}, Your Current account is on its way ");
+            Console.WriteLine($"============================PROCESSING===========================");
+            Console.WriteLine($"[Congratulations {AccountName}, your current account is ready]");
+        }
+
+        public override void DisplayAccountDetails ()
+        {
+            base.DisplayAccountDetails(); 
+            Console.WriteLine($"Account Type   : Current Account (Overdraft Limit: N{_overdraftLimit:N2})");
+            Console.WriteLine("...............");
+                    
         }
         public override void Withdraw(decimal amount)
         {

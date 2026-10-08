@@ -9,8 +9,20 @@ namespace BackendLearning
         }
         public override void AccountType()
         {
-            Console.WriteLine($"[Successful] {AccountName}, Your Savings account is on its way ");
+            Console.WriteLine($" Hello {AccountName}, your savings account is on its way... ");
+            Console.WriteLine($"=================== PROCESSING ====================== ");
+            Console.WriteLine($"[Congratulations] {AccountName}, your savings account is ready!! ");
         }
+
+
+        public override void DisplayAccountDetails ()
+        {
+            base.DisplayAccountDetails(); 
+            Console.WriteLine($"Account Type    : Savings Account (Min Balance: N{_fixedBalance:N2})");
+            Console.WriteLine("...............");
+                    
+        }
+        
         public override void Withdraw(decimal amount)
         {
              if (amount <= 0)

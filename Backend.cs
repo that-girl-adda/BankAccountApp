@@ -51,7 +51,7 @@ namespace BackendLearning
         }
 
 
-        public void DisplayAccountDetails ()
+        public virtual void DisplayAccountDetails ()
         {
             Console.WriteLine("Account Details");
             Console.WriteLine($"Account Number : {AccountNumber}");

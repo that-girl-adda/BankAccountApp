@@ -4,71 +4,75 @@
     {
         public static void Main()
         {
-            BankAccount johnsAccount = new BankAccount("001", "John", 50000);
+            BankAccount bnkAccount = new BankAccount("001", "John", 50000);
 
-            johnsAccount.DisplayAccountDetails();
+            bnkAccount.DisplayAccountDetails();
              
             Console.WriteLine("\n=== VALID TRANSACTIONS ===");
-            johnsAccount.Deposit(20000m);
-            Console.WriteLine($" GetBalance : N{johnsAccount.GetBalance():N2}");
+            bnkAccount.Deposit(20000m);
+            Console.WriteLine($" GetBalance : N{bnkAccount.GetBalance():N2}");
 
-            johnsAccount.Withdraw(15000m);
-            Console.WriteLine($"Balance: N{johnsAccount.GetBalance():N2}");
+            bnkAccount.Withdraw(15000m);
+            Console.WriteLine($"Balance: N{bnkAccount.GetBalance():N2}");
 
 
 
             Console.WriteLine("\n=== TESTING INVALID CASES ===");
-            johnsAccount.Deposit(0m);
-            johnsAccount.Deposit(-5000m);
-            johnsAccount.Withdraw(0m);
-            johnsAccount.Withdraw(-2000m);
-            johnsAccount.Withdraw(100000m);
+            bnkAccount.Deposit(0m);
+            bnkAccount.Deposit(-5000m);
+            bnkAccount.Withdraw(0m);
+            bnkAccount.Withdraw(-2000m);
+            bnkAccount.Withdraw(100000m);
 
 
             
             Console.WriteLine("\n=== FINAL STATE ===");
-            johnsAccount.DisplayAccountDetails();
+            bnkAccount.DisplayAccountDetails();
 
 
 
             Console.WriteLine("             SAVINGS ACCOUNT TESTS                ");
 
-            SavingsAccount adasAccount = new SavingsAccount("SAV-002", "Ada", 30000m);
-            adasAccount.AccountType();
+            SavingsAccount savAccount = new SavingsAccount("SAV-002", "Ada", 30000m);
+            savAccount.AccountType();
+              
+            savAccount.DisplayAccountDetails();
 
-             Console.WriteLine("\n--- Valid Withdrawal (₦10,000 from ₦30,000) ---");
-             adasAccount.Withdraw(20000m);
-            Console.WriteLine($"Current Balance: N{adasAccount.GetBalance():N2}");
+            Console.WriteLine("\n--- Valid Withdrawal (₦10,000 from ₦30,000) ---");
+            savAccount.Withdraw(20000m);
+            Console.WriteLine($"Current Balance: N{savAccount.GetBalance():N2}");
 
             Console.WriteLine("\n--- Withdrawal Below ₦5,000 Limit (₦7,000 from ₦10,000) ---");
-            adasAccount.Withdraw(7000m);
-            Console.WriteLine($"Current Balance: N{adasAccount.GetBalance():N2}");
+            savAccount.Withdraw(7000m);
+            Console.WriteLine($"Current Balance: N{savAccount.GetBalance():N2}");
 
             Console.WriteLine("\n--- Negative Withdrawal (-₦2,000) ---");
-            adasAccount.Withdraw(-2000m);
+            savAccount.Withdraw(-2000m);
 
             Console.WriteLine("\n--- Zero Withdrawal (₦0) ---");
-            adasAccount.Withdraw(0m);
+            savAccount.Withdraw(0m);
 
 
 
             Console.WriteLine("             CURRENT ACCOUNT TESTS                ");
             Console.WriteLine("==================================================");
 
-            CurrentAccount miriamsAccount = new CurrentAccount("CUR-003", "Miriam", 20000m);
-            miriamsAccount.AccountType();
+            CurrentAccount curAccount = new CurrentAccount("CUR-003", "Miriam", 20000m);
+            curAccount.AccountType();
+            
+            curAccount.DisplayAccountDetails();
 
             Console.WriteLine("\n--- Normal Withdrawal (₦10,000 from ₦20,000) ---");
-            miriamsAccount.Withdraw(10000m);
-            Console.WriteLine($"Current Balance: N{miriamsAccount.GetBalance():N2}");
+            curAccount.Withdraw(10000m);
+            Console.WriteLine($"Current Balance: N{curAccount.GetBalance():N2}");
 
             Console.WriteLine("\n--- Withdrawal Using Overdraft (₦40,000 from ₦10,000) ---");
-            miriamsAccount.Withdraw(40000m);
-            Console.WriteLine($"Current Balance: N{miriamsAccount.GetBalance():N2}");
+            curAccount.Withdraw(40000m);
+            Console.WriteLine($"Current Balance: N{curAccount.GetBalance():N2}");
 
             Console.WriteLine("\n--- Exceeding ₦50,000 Overdraft Limit (₦30,000 when balance is -₦30,000) ---");
-            miriamsAccount.Withdraw(30000m);
-            Console.WriteLine($"Current Balance: N{miriamsAccount.GetBalance():N2}");
+            curAccount.Withdraw(30000m);
+            Console.WriteLine($"Current Balance: N{curAccount.GetBalance():N2}");
 
             Console.WriteLine("          POLYMORPHISM DEMONSTRATION             ");
             Console.WriteLine("==================================================");
