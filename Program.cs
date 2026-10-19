@@ -2,105 +2,151 @@
 {
     public class Program
     {
-        public static void Main()
+        public static void Main(string[] args)
         {
-            BankAccount bnkAccount = new BankAccount("001", "John", 50000);
-
-            bnkAccount.DisplayAccountDetails();
-             
-            Console.WriteLine("\n=== VALID TRANSACTIONS ===");
-            bnkAccount.Deposit(20000m);
-            Console.WriteLine($" GetBalance : N{bnkAccount.GetBalance():N2}");
-
-            bnkAccount.Withdraw(15000m);
-            Console.WriteLine($"Balance: N{bnkAccount.GetBalance():N2}");
 
 
+            IAccountService accountService = new AccountManager();
+            bool running = true; 
 
-            Console.WriteLine("\n=== TESTING INVALID CASES ===");
-            bnkAccount.Deposit(0m);
-            bnkAccount.Deposit(-5000m);
-            bnkAccount.Withdraw(0m);
-            bnkAccount.Withdraw(-2000m);
-            bnkAccount.Withdraw(100000m);
+            Console.WriteLine("===WELCOME TO THE BANK ACCOUNT MANAGEMENT SYSTEM==");
 
-
-            
-            Console.WriteLine("\n=== FINAL STATE ===");
-            bnkAccount.DisplayAccountDetails();
-
-
-
-            Console.WriteLine("             SAVINGS ACCOUNT TESTS                ");
-
-            SavingsAccount savAccount = new SavingsAccount("SAV-002", "Ada", 30000m);
-            savAccount.AccountType();
-              
-            savAccount.DisplayAccountDetails();
-
-            Console.WriteLine("\n--- Valid Withdrawal (₦10,000 from ₦30,000) ---");
-            savAccount.Withdraw(20000m);
-            Console.WriteLine($"Current Balance: N{savAccount.GetBalance():N2}");
-
-            Console.WriteLine("\n--- Withdrawal Below ₦5,000 Limit (₦7,000 from ₦10,000) ---");
-            savAccount.Withdraw(7000m);
-            Console.WriteLine($"Current Balance: N{savAccount.GetBalance():N2}");
-
-            Console.WriteLine("\n--- Negative Withdrawal (-₦2,000) ---");
-            savAccount.Withdraw(-2000m);
-
-            Console.WriteLine("\n--- Zero Withdrawal (₦0) ---");
-            savAccount.Withdraw(0m);
-
-
-
-            Console.WriteLine("             CURRENT ACCOUNT TESTS                ");
-            Console.WriteLine("==================================================");
-
-            CurrentAccount curAccount = new CurrentAccount("CUR-003", "Miriam", 20000m);
-            curAccount.AccountType();
-            
-            curAccount.DisplayAccountDetails();
-
-            Console.WriteLine("\n--- Normal Withdrawal (₦10,000 from ₦20,000) ---");
-            curAccount.Withdraw(10000m);
-            Console.WriteLine($"Current Balance: N{curAccount.GetBalance():N2}");
-
-            Console.WriteLine("\n--- Withdrawal Using Overdraft (₦40,000 from ₦10,000) ---");
-            curAccount.Withdraw(40000m);
-            Console.WriteLine($"Current Balance: N{curAccount.GetBalance():N2}");
-
-            Console.WriteLine("\n--- Exceeding ₦50,000 Overdraft Limit (₦30,000 when balance is -₦30,000) ---");
-            curAccount.Withdraw(30000m);
-            Console.WriteLine($"Current Balance: N{curAccount.GetBalance():N2}");
-
-            Console.WriteLine("          POLYMORPHISM DEMONSTRATION             ");
-            Console.WriteLine("==================================================");
-
-
-            List<BankAccount> myAccounts = new List<BankAccount>();
-
-
-            myAccounts.Add(new BankAccount("001", "John", 50000m));
-            myAccounts.Add(new SavingsAccount("002", "Ada", 20000m));
-            myAccounts.Add(new CurrentAccount("003", "Miriam", 15000m));
-
-
-            foreach (BankAccount acc in myAccounts)
+            while(running)
             {
-            Console.WriteLine($"\nAccount: {acc.AccountName}");
-            acc.Withdraw(18000m);
-}
+                Console.WriteLine("\nPlease select an option:");
+                Console.WriteLine("1. Create Savings Account");
+                Console.WriteLine("2. Create Current Account");
+                Console.WriteLine("3. Deposit Money");
+                Console.WriteLine("4. Withdraw Money");
+                Console.WriteLine("5. View All Accounts");
+                Console.WriteLine("6. Exit");
+                Console.WriteLine("Enter your choice (1-6):");
+
+                string? choice = Console.ReadLine();
+                Console.WriteLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        CreateSavings(accountService); 
+                        break;
+                    case "2":
+                        CreateCurrent(accountService); 
+                        break;
+                    case "3":
+                        DepositMoney(accountService);
+                        break;
+                    case "4":
+                        WithdrawMoney(accountService);
+                        break;
+                    case "5":
+                        ViewAllAccounts(accountService);
+                        break;
+                    case "6":
+                        running = false;
+                        Console.WriteLine("Thank you for banking with us. Goodbye!");
+                        break;   
+                    default:
+                        Console.WriteLine("Invalid choice. Please enter a valid number between 1 and 6 ");
+                        break;
+                }
+            }
+
+           
+
+
+
+
+            
+             
+
+        }
+        private static void CreateSavings(IAccountService service)
+        {
+            Console.Write("Enter Account Number: ");
+            string? accNumber = Console.ReadLine();
+
+            Console.Write("Enter Account Name: ");
+            string? accName = Console.ReadLine();
+
+            Console.Write("Enter Initial Deposit:n");
+            decimal.TryParse(Console.ReadLine(), out decimal balance);
+
+            if (string.IsNullOrEmpty(accNumber) || string.IsNullOrEmpty(accName))
+            {
+                Console.WriteLine("Error: Account Number and Account Name cannot be blank");
+                return;
+            }
+            service.CreateSavingsAccount(accNumber, accName, balance);
+        }
+
+        private static void CreateCurrent(IAccountService service)
+        {
+            Console.Write("Enter Account Number: ");
+            string? accNumber = Console.ReadLine();
+
+            Console.Write("Enter Account Name: ");
+            string? accName = Console.ReadLine();
+
+            Console.Write("Enter Initial Deposit: ");
+            decimal.TryParse(Console.ReadLine(), out decimal balance);
+
+            if (string.IsNullOrEmpty(accNumber) || string.IsNullOrEmpty(accName))
+            {
+                Console.WriteLine("Error: Account Number and Account Name cannot be blank");
+                return;
+            }
+            service.CreateCurrentAccount(accNumber, accName, balance);
+        }
+
+        private static void DepositMoney(IAccountService service)
+        {
+            Console.Write("Enter Account Number:  ");
+            string? accNumber = Console.ReadLine();
+
+            Console.Write("Enter Amount to Deposit:  ");
+            decimal.TryParse(Console.ReadLine(), out decimal amount);
+
+            if (string.IsNullOrEmpty(accNumber))
+            {
+                Console.WriteLine("Error: Account Number cannot be blank");
+                return;
+            }
+            service.Deposit(accNumber, amount);
+        }
+
+        private static void WithdrawMoney(IAccountService service)
+        {
+            Console.Write("Enter Account Number:  ");
+            string? accNumber = Console.ReadLine();
+
+            Console.Write("Enter Amount to Withdraw: ");
+            decimal.TryParse(Console.ReadLine(), out decimal amount);
+
+            if (string.IsNullOrEmpty(accNumber))
+            {
+                Console.WriteLine("Error: Account Number cannot be blank");
+                return;
+            }
+            service.Deposit(accNumber, amount);
+        }
+
+        private static void ViewAllAccounts(IAccountService service)
+        {
+            var accounts = service.GetAllAccounts();
+        if (accounts.Count == 0)
+            {
+                Console.WriteLine("No Accounts found in the system.");
+                return;
+            }
+
+            Console.WriteLine("\n=======ALL REGISTERED ACCOUNTS ======");
+            foreach (var acc in accounts)
+            {
+                acc.DisplayAccountDetails();
+            }
         }
 
 
-
-
-
-
-            
-             
-
-        
     }
 }
