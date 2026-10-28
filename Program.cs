@@ -61,7 +61,7 @@
              
 
         }
-        private static void CreateSavings(IAccountService service)
+       private static void CreateSavings(IAccountService service)
         {
             Console.Write("Enter Account Number: ");
             string? accNumber = Console.ReadLine();
@@ -69,15 +69,32 @@
             Console.Write("Enter Account Name: ");
             string? accName = Console.ReadLine();
 
-            Console.Write("Enter Initial Deposit:n");
-            decimal.TryParse(Console.ReadLine(), out decimal balance);
+            Console.Write("Enter Initial Deposit: ");
+            if (!decimal.TryParse(Console.ReadLine(), out decimal balance))
+            {
+                Console.WriteLine("Invalid amount. Please enter a valid number.");
+                return;
+            }
 
             if (string.IsNullOrEmpty(accNumber) || string.IsNullOrEmpty(accName))
             {
                 Console.WriteLine("Error: Account Number and Account Name cannot be blank");
                 return;
             }
-            service.CreateSavingsAccount(accNumber, accName, balance);
+
+            try
+            {
+                Console.WriteLine("[DEBUG] Calling AccountManager...");
+
+                bool created = service.CreateSavingsAccount(
+                    accNumber, accName, balance);
+
+                Console.WriteLine($"[DEBUG] Creation result: {created}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ERROR] {ex}");
+            }
         }
 
         private static void CreateCurrent(IAccountService service)
@@ -128,7 +145,7 @@
                 Console.WriteLine("Error: Account Number cannot be blank");
                 return;
             }
-            service.Deposit(accNumber, amount);
+            service.Withdraw(accNumber, amount);
         }
 
         private static void ViewAllAccounts(IAccountService service)

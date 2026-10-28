@@ -15,15 +15,31 @@ namespace BackendLearning
 
         public bool CreateSavingsAccount(string AccountNumber, string AccountName, decimal initialBalance)
         {
+            Console.WriteLine("[DEBUG 1] Entered CreateSavingsAccount.");
+
             if (FindAccountByNumber(AccountNumber) != null)
             {
-                Console.WriteLine($"ERROR: Account number '{AccountNumber}' already exists.");
+                Console.WriteLine(
+                    $"ERROR: Account number '{AccountNumber}' already exists.");
+
                 return false;
             }
-            var newAccount = new SavingsAccount(AccountNumber, AccountName, initialBalance);
+
+            Console.WriteLine("[DEBUG 2] No duplicate account found.");
+
+            var newAccount = new SavingsAccount(
+                AccountNumber, AccountName, initialBalance);
+
+            Console.WriteLine("[DEBUG 3] SavingsAccount object created.");
 
             _accounts.Add(newAccount);
-            Console.WriteLine($"Congratulations: {AccountName}, your Savings Account is ready");
+
+            Console.WriteLine("[DEBUG 4] Account added to collection.");
+
+            newAccount.AccountType();
+
+            Console.WriteLine("[DEBUG 5] AccountType method completed.");
+
             return true;
         }
 
@@ -37,7 +53,10 @@ namespace BackendLearning
             var newAccount = new CurrentAccount(AccountNumber, AccountName, initialBalance);
 
             _accounts.Add(newAccount);
-            Console.WriteLine($"Congratulations: {AccountName}, your Current Account is ready");
+            
+            // Trigger your custom polymorphic account type message!
+            newAccount.AccountType(); 
+            
             return true;
         }
 
@@ -67,7 +86,7 @@ namespace BackendLearning
             return false;
         }
 
-        public List<BankAccount> GetAllAccounts()
+        public List <BankAccount> GetAllAccounts()
         {
             return _accounts;
         }
