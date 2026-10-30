@@ -4,12 +4,12 @@ namespace BackendLearning
     {
         public string AccountNumber{get;}
         public string AccountName  {get; set;}
-        private  decimal _balance ;
+        public  decimal _balance ;
 
-        protected decimal Balance
+        public decimal Balance
         {
             get => _balance;
-            set => _balance = value;
+            protected set => _balance = value;
         }
 
         public BankAccount(string accNumber, string accName, decimal initialBalance)

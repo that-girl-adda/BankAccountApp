@@ -15,7 +15,7 @@ namespace BackendLearning
 
         public bool CreateSavingsAccount(string AccountNumber, string AccountName, decimal initialBalance)
         {
-            Console.WriteLine("[DEBUG 1] Entered CreateSavingsAccount.");
+            Console.WriteLine("Entered CreateSavingsAccount.");
 
             if (FindAccountByNumber(AccountNumber) != null)
             {
@@ -25,20 +25,20 @@ namespace BackendLearning
                 return false;
             }
 
-            Console.WriteLine("[DEBUG 2] No duplicate account found.");
+            Console.WriteLine(" No duplicate account found.");
 
             var newAccount = new SavingsAccount(
                 AccountNumber, AccountName, initialBalance);
 
-            Console.WriteLine("[DEBUG 3] SavingsAccount object created.");
+            Console.WriteLine("SavingsAccount object created.");
 
             _accounts.Add(newAccount);
 
-            Console.WriteLine("[DEBUG 4] Account added to collection.");
+            Console.WriteLine(" Account added to collection.");
 
             newAccount.AccountType();
 
-            Console.WriteLine("[DEBUG 5] AccountType method completed.");
+            Console.WriteLine(" AccountType method completed.");
 
             return true;
         }
@@ -53,10 +53,10 @@ namespace BackendLearning
             var newAccount = new CurrentAccount(AccountNumber, AccountName, initialBalance);
 
             _accounts.Add(newAccount);
-            
-            // Trigger your custom polymorphic account type message!
-            newAccount.AccountType(); 
-            
+
+
+            newAccount.AccountType();
+
             return true;
         }
 
@@ -69,8 +69,9 @@ namespace BackendLearning
                 account.Deposit(amount);
                 return true;
             }
-            Console.WriteLine($"Account not found");
-            return false;
+            throw new AccountNotFoundException($"Error: Account number '{AccountNumber}' could not be found.");
+
+
         }
 
         public bool Withdraw(string AccountNumber, decimal amount)
@@ -82,13 +83,45 @@ namespace BackendLearning
                 account.Withdraw(amount);
                 return true;
             }
-            Console.WriteLine($"Account not found");
-            return false;
+            throw new AccountNotFoundException($"Error: Account number '{AccountNumber}' could not be found.");
+
         }
 
-        public List <BankAccount> GetAllAccounts()
+        public List<BankAccount> GetAllAccounts()
         {
             return _accounts;
         }
+
+
+        public List<BankAccount> GetAccountsAbove100k()
+        {
+            return _accounts.Where(a => a.Balance > 100000).ToList();
+        }
+
+
+        public List<SavingsAccount> GetSavingsAccounts()
+        {
+            return _accounts.OfType<SavingsAccount>().ToList();
+        }
+
+
+        public List<CurrentAccount> GetCurrentAccounts()
+        {
+            return _accounts.OfType<CurrentAccount>().ToList();
+        }
+
+
+        public decimal GetTotalBalance()
+        {
+            return _accounts.Sum(a => a.Balance);
+        }
+
+
+        public BankAccount? GetAccountWithHighestBalance()
+        {
+            return _accounts.OrderByDescending(a => a.Balance).FirstOrDefault();
+        }
+
+
     }
 }
